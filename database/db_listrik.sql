@@ -1,0 +1,1312 @@
+-- phpMyAdmin SQL Dump
+-- version 3.5.2.2
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: Feb 01, 2018 at 09:35 AM
+-- Server version: 5.5.27
+-- PHP Version: 5.4.7
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+
+SET TIME_ZONE = "+00:00";
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Database: `11505071_zidun`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `agen`
+--
+
+CREATE TABLE IF NOT EXISTS `AGEN` (
+  `ID_AGEN` VARCHAR(12) NOT NULL,
+  `NAMA` VARCHAR(50) NOT NULL,
+  `ALAMAT` TEXT NOT NULL,
+  `NO_TELEPON` VARCHAR(15) NOT NULL,
+  `SALDO` DOUBLE NOT NULL,
+  `BIAYA_ADMIN` DOUBLE NOT NULL,
+  `USERNAME` VARCHAR(30) NOT NULL,
+  `PASSWORD` VARCHAR(30) NOT NULL,
+  `AKSES` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`ID_AGEN`)
+) ENGINE=INNODB DEFAULT CHARSET=LATIN1;
+
+--
+-- Dumping data for table `agen`
+--
+
+INSERT INTO `AGEN` (
+  `ID_AGEN`,
+  `NAMA`,
+  `ALAMAT`,
+  `NO_TELEPON`,
+  `SALDO`,
+  `BIAYA_ADMIN`,
+  `USERNAME`,
+  `PASSWORD`,
+  `AKSES`
+) VALUES (
+  'A20180125001',
+  'Zidun',
+  'Sukabirus',
+  '085817725512',
+  0,
+  2000,
+  'agen',
+  'agen123',
+  'agen'
+),
+(
+  'A20180129001',
+  'Muhammad Ramdan',
+  'Bogor',
+  '083811941421',
+  0,
+  5000,
+  'zidun',
+  'zidun123',
+  'agen'
+);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pelanggan`
+--
+
+CREATE TABLE IF NOT EXISTS `PELANGGAN` (
+  `ID_PELANGGAN` VARCHAR(14) NOT NULL,
+  `NO_METER` VARCHAR(12) NOT NULL,
+  `NAMA` VARCHAR(50) NOT NULL,
+  `ALAMAT` TEXT NOT NULL,
+  `TENGGANG` VARCHAR(2) NOT NULL,
+  `ID_TARIF` INT(11) NOT NULL,
+  PRIMARY KEY (`ID_PELANGGAN`)
+) ENGINE=INNODB DEFAULT CHARSET=LATIN1;
+
+--
+-- Dumping data for table `pelanggan`
+--
+
+INSERT INTO `PELANGGAN` (
+  `ID_PELANGGAN`,
+  `NO_METER`,
+  `NAMA`,
+  `ALAMAT`,
+  `TENGGANG`,
+  `ID_TARIF`
+) VALUES (
+  '20180126081200',
+  '025180150800',
+  'Muhammad Ramdan',
+  'Ciaiw',
+  '26',
+  4
+),
+(
+  '20180126081257',
+  '025180150857',
+  'Zidun',
+  'Bandung',
+  '26',
+  3
+),
+(
+  '20180126081804',
+  '025180150804',
+  'Syamsul Hidayatullah',
+  'Bandung',
+  '26',
+  5
+),
+(
+  '20180126165945',
+  '025180151645',
+  'Muhammad romi',
+  'Sukabirus',
+  '26',
+  8
+),
+(
+  '20180128141026',
+  '027180171426',
+  'Fajar Firdaus',
+  'Tajur',
+  '28',
+  5
+),
+(
+  '20180128141049',
+  '027180171449',
+  'Muhamad Segafi Kurniawan',
+  'Cibogo',
+  '28',
+  4
+),
+(
+  '20180128141130',
+  '027180171430',
+  'Muhammad Junaedi',
+  'Pasir Muncang',
+  '28',
+  8
+),
+(
+  '20180128141244',
+  '027180171444',
+  'Muhammad Nur Alfi',
+  'Tajur',
+  '28',
+  4
+),
+(
+  '20180128141336',
+  '027180171436',
+  'Ramadhan Yoga Pratam',
+  'Cengkareng, Jakarta',
+  '28',
+  4
+),
+(
+  '20180128141409',
+  '027180171409',
+  'Rizaldy Sukma Perkasa',
+  'Ciawi',
+  '28',
+  4
+),
+(
+  '20180129132711',
+  '028180111311',
+  'Muhammad ',
+  'Ciawi',
+  '29',
+  10
+),
+(
+  '20180129135850',
+  '028180111350',
+  'Alwi Gunawan',
+  'Cireketeg',
+  '29',
+  4
+),
+(
+  '20180130165747',
+  '029180121647',
+  'Muhammmad zidun',
+  'Ciawi',
+  '30',
+  4
+),
+(
+  '20180131085951',
+  '030180130851',
+  'Zainul Fahri',
+  'Ciawi',
+  '31',
+  3
+),
+(
+  '20180201092427',
+  '031180240927',
+  'Ari Aliansyah',
+  'gadog',
+  '01',
+  3
+);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pembayaran`
+--
+
+CREATE TABLE IF NOT EXISTS `PEMBAYARAN` (
+  `ID_PEMBAYARAN` VARCHAR(15) NOT NULL,
+  `ID_PELANGGAN` VARCHAR(14) NOT NULL,
+  `TGL_BAYAR` DATE NOT NULL,
+  `WAKTU_BAYAR` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `BULAN_BAYAR` VARCHAR(2) NOT NULL,
+  `TAHUN_BAYAR` YEAR(4) NOT NULL,
+  `JUMLAH_BAYAR` DOUBLE NOT NULL,
+  `BIAYA_ADMIN` DOUBLE NOT NULL,
+  `TOTAL_AKHIR` DOUBLE NOT NULL,
+  `BAYAR` DOUBLE NOT NULL,
+  `KEMBALI` DOUBLE NOT NULL,
+  `ID_AGEN` VARCHAR(12) NOT NULL,
+  PRIMARY KEY (`ID_PEMBAYARAN`)
+) ENGINE=INNODB DEFAULT CHARSET=LATIN1;
+
+--
+-- Dumping data for table `pembayaran`
+--
+
+INSERT INTO `PEMBAYARAN` (
+  `ID_PEMBAYARAN`,
+  `ID_PELANGGAN`,
+  `TGL_BAYAR`,
+  `WAKTU_BAYAR`,
+  `BULAN_BAYAR`,
+  `TAHUN_BAYAR`,
+  `JUMLAH_BAYAR`,
+  `BIAYA_ADMIN`,
+  `TOTAL_AKHIR`,
+  `BAYAR`,
+  `KEMBALI`,
+  `ID_AGEN`
+) VALUES (
+  'BYR201801260001',
+  '20180126081200',
+  '2018-01-26',
+  '2018-01-26 08:07:41',
+  '02',
+  2018,
+  15000,
+  2000,
+  17000,
+  20000,
+  3000,
+  'A20180125001'
+),
+(
+  'BYR201801260002',
+  '20180126081804',
+  '2018-01-26',
+  '2018-01-26 09:22:34',
+  '02',
+  2018,
+  75000,
+  2000,
+  77000,
+  80000,
+  3000,
+  'A20180125001'
+),
+(
+  'BYR201801260003',
+  '20180126165945',
+  '2018-01-26',
+  '2018-01-26 10:04:01',
+  '02',
+  2018,
+  150000,
+  2000,
+  152000,
+  160000,
+  8000,
+  'A20180125001'
+),
+(
+  'BYR201801280001',
+  '20180126081200',
+  '2018-01-28',
+  '2018-01-28 10:17:20',
+  '03',
+  2018,
+  135000,
+  2000,
+  137000,
+  140000,
+  3000,
+  'A20180125001'
+),
+(
+  'BYR201801280002',
+  '20180126081200',
+  '2018-01-28',
+  '2018-01-28 10:18:52',
+  '04',
+  2018,
+  1350000,
+  2000,
+  1352000,
+  1400000,
+  48000,
+  'A20180125001'
+),
+(
+  'BYR201801290001',
+  '20180129132711',
+  '2018-01-29',
+  '2018-01-29 06:29:58',
+  '02',
+  2018,
+  140000,
+  2000,
+  142000,
+  150000,
+  8000,
+  'A20180125001'
+),
+(
+  'BYR201801290002',
+  '20180128141130',
+  '2018-01-29',
+  '2018-01-29 06:41:50',
+  '02',
+  2018,
+  1500000,
+  2000,
+  1502000,
+  1510000,
+  8000,
+  'A20180125001'
+),
+(
+  'BYR201801300001',
+  '20180130165747',
+  '2018-01-30',
+  '2018-01-30 10:01:59',
+  '02',
+  2018,
+  150000,
+  2000,
+  152000,
+  160000,
+  8000,
+  'A20180125001'
+),
+(
+  'BYR201802010001',
+  '20180128141026',
+  '2018-02-01',
+  '2018-02-01 01:33:50',
+  '02',
+  2018,
+  75000,
+  2000,
+  77000,
+  80000,
+  3000,
+  'A20180125001'
+),
+(
+  'BYR201802010002',
+  '20180128141026',
+  '2018-02-01',
+  '2018-02-01 02:22:32',
+  '03',
+  2018,
+  37500,
+  2000,
+  39500,
+  40000,
+  500,
+  'A20180125001'
+);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `penggunaan`
+--
+
+CREATE TABLE IF NOT EXISTS `PENGGUNAAN` (
+  `ID_PENGGUNAAN` VARCHAR(20) NOT NULL,
+  `ID_PELANGGAN` VARCHAR(14) NOT NULL,
+  `BULAN` VARCHAR(2) NOT NULL,
+  `TAHUN` YEAR(4) NOT NULL,
+  `METER_AWAL` INT(11) NOT NULL,
+  `METER_AKHIR` INT(11) NOT NULL,
+  `TGL_CEK` DATE NOT NULL,
+  `ID_PETUGAS` VARCHAR(12) NOT NULL,
+  PRIMARY KEY (`ID_PENGGUNAAN`)
+) ENGINE=INNODB DEFAULT CHARSET=LATIN1;
+
+--
+-- Dumping data for table `penggunaan`
+--
+
+INSERT INTO `PENGGUNAAN` (
+  `ID_PENGGUNAAN`,
+  `ID_PELANGGAN`,
+  `BULAN`,
+  `TAHUN`,
+  `METER_AWAL`,
+  `METER_AKHIR`,
+  `TGL_CEK`,
+  `ID_PETUGAS`
+) VALUES (
+  '20180126081200022018',
+  '20180126081200',
+  '02',
+  2018,
+  0,
+  10,
+  '2018-02-23',
+  'P20180125001'
+),
+(
+  '20180126081200032018',
+  '20180126081200',
+  '03',
+  2018,
+  10,
+  100,
+  '2018-02-26',
+  'P20180125001'
+),
+(
+  '20180126081200042018',
+  '20180126081200',
+  '04',
+  2018,
+  100,
+  1000,
+  '2018-04-26',
+  'P20180125001'
+),
+(
+  '20180126081200052018',
+  '20180126081200',
+  '05',
+  2018,
+  1000,
+  0,
+  '0000-00-00',
+  ''
+),
+(
+  '20180126081257022018',
+  '20180126081257',
+  '02',
+  2018,
+  0,
+  80,
+  '2018-02-26',
+  'P20180125001'
+),
+(
+  '20180126081257032018',
+  '20180126081257',
+  '03',
+  2018,
+  80,
+  0,
+  '0000-00-00',
+  ''
+),
+(
+  '20180126081804022018',
+  '20180126081804',
+  '02',
+  2018,
+  0,
+  100,
+  '2018-02-26',
+  'P20180125001'
+),
+(
+  '20180126081804032018',
+  '20180126081804',
+  '03',
+  2018,
+  100,
+  0,
+  '0000-00-00',
+  ''
+),
+(
+  '20180126165945022018',
+  '20180126165945',
+  '02',
+  2018,
+  0,
+  100,
+  '2018-02-26',
+  'P20180125001'
+),
+(
+  '20180126165945032018',
+  '20180126165945',
+  '03',
+  2018,
+  100,
+  0,
+  '0000-00-00',
+  ''
+),
+(
+  '20180128141026022018',
+  '20180128141026',
+  '02',
+  2018,
+  0,
+  100,
+  '2018-02-01',
+  'P20180125001'
+),
+(
+  '20180128141026032018',
+  '20180128141026',
+  '03',
+  2018,
+  100,
+  150,
+  '2018-03-01',
+  'P20180125001'
+),
+(
+  '20180128141026042018',
+  '20180128141026',
+  '04',
+  2018,
+  150,
+  200,
+  '2018-04-23',
+  'P20180125001'
+),
+(
+  '20180128141026052018',
+  '20180128141026',
+  '05',
+  2018,
+  200,
+  0,
+  '0000-00-00',
+  ''
+),
+(
+  '20180128141049022018',
+  '20180128141049',
+  '02',
+  2018,
+  0,
+  0,
+  '0000-00-00',
+  ''
+),
+(
+  '20180128141130022018',
+  '20180128141130',
+  '02',
+  2018,
+  0,
+  1000,
+  '2018-02-26',
+  'P20180125001'
+),
+(
+  '20180128141130032018',
+  '20180128141130',
+  '03',
+  2018,
+  1000,
+  2000,
+  '2018-01-01',
+  'P20180125001'
+),
+(
+  '20180128141130042018',
+  '20180128141130',
+  '04',
+  2018,
+  2000,
+  0,
+  '0000-00-00',
+  ''
+),
+(
+  '20180128141244022018',
+  '20180128141244',
+  '02',
+  2018,
+  0,
+  0,
+  '0000-00-00',
+  ''
+),
+(
+  '20180128141336022018',
+  '20180128141336',
+  '02',
+  2018,
+  0,
+  0,
+  '0000-00-00',
+  ''
+),
+(
+  '20180128141409022018',
+  '20180128141409',
+  '02',
+  2018,
+  0,
+  0,
+  '0000-00-00',
+  ''
+),
+(
+  '20180129132711022018',
+  '20180129132711',
+  '02',
+  2018,
+  0,
+  100,
+  '2018-01-29',
+  'P20180125001'
+),
+(
+  '20180129132711032018',
+  '20180129132711',
+  '03',
+  2018,
+  100,
+  0,
+  '0000-00-00',
+  ''
+),
+(
+  '20180129135850022018',
+  '20180129135850',
+  '02',
+  2018,
+  0,
+  50,
+  '2018-02-25',
+  'P20180125001'
+),
+(
+  '20180129135850032018',
+  '20180129135850',
+  '03',
+  2018,
+  50,
+  70,
+  '2018-03-25',
+  'P20180125001'
+),
+(
+  '20180129135850042018',
+  '20180129135850',
+  '04',
+  2018,
+  70,
+  0,
+  '0000-00-00',
+  ''
+),
+(
+  '20180130165747022018',
+  '20180130165747',
+  '02',
+  2018,
+  0,
+  100,
+  '2018-02-21',
+  'P20180125001'
+),
+(
+  '20180130165747032018',
+  '20180130165747',
+  '03',
+  2018,
+  100,
+  0,
+  '0000-00-00',
+  ''
+),
+(
+  '20180131085951022018',
+  '20180131085951',
+  '02',
+  2018,
+  0,
+  100,
+  '2018-02-21',
+  'P20180125001'
+),
+(
+  '20180131085951032018',
+  '20180131085951',
+  '03',
+  2018,
+  100,
+  120,
+  '2018-03-21',
+  'P20180125001'
+),
+(
+  '20180131085951042018',
+  '20180131085951',
+  '04',
+  2018,
+  120,
+  200,
+  '2018-04-25',
+  'P20180125001'
+),
+(
+  '20180131085951052018',
+  '20180131085951',
+  '05',
+  2018,
+  200,
+  0,
+  '0000-00-00',
+  ''
+),
+(
+  '20180201075546022018',
+  '20180201075546',
+  '02',
+  2018,
+  0,
+  0,
+  '0000-00-00',
+  ''
+),
+(
+  '20180201092427022018',
+  '20180201092427',
+  '02',
+  2018,
+  0,
+  100,
+  '2018-02-21',
+  'P20180125001'
+),
+(
+  '20180201092427032018',
+  '20180201092427',
+  '03',
+  2018,
+  100,
+  0,
+  '0000-00-00',
+  ''
+);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `petugas`
+--
+
+CREATE TABLE IF NOT EXISTS `PETUGAS` (
+  `ID_PETUGAS` VARCHAR(12) NOT NULL,
+  `NAMA` VARCHAR(50) NOT NULL,
+  `ALAMAT` TEXT NOT NULL,
+  `NO_TELEPON` VARCHAR(15) NOT NULL,
+  `JK` VARCHAR(1) NOT NULL,
+  `USERNAME` VARCHAR(30) NOT NULL,
+  `PASSWORD` VARCHAR(30) NOT NULL,
+  `AKSES` VARCHAR(20) NOT NULL,
+  PRIMARY KEY (`ID_PETUGAS`)
+) ENGINE=INNODB DEFAULT CHARSET=LATIN1;
+
+--
+-- Dumping data for table `petugas`
+--
+
+INSERT INTO `PETUGAS` (
+  `ID_PETUGAS`,
+  `NAMA`,
+  `ALAMAT`,
+  `NO_TELEPON`,
+  `JK`,
+  `USERNAME`,
+  `PASSWORD`,
+  `AKSES`
+) VALUES (
+  'P20180125001',
+  'Muhammad Ramdan',
+  'Sukabirus',
+  '083811941421',
+  'L',
+  'petugas',
+  'petugas123',
+  'petugas'
+),
+(
+  'P20180129001',
+  'Muhammad Ramdan',
+  '12',
+  '12',
+  'L',
+  'ramdan',
+  'aku123',
+  'petugas'
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `qw_pembayaran`
+--
+CREATE TABLE IF NOT EXISTS `QW_PEMBAYARAN` (
+  `ID_PEMBAYARAN` VARCHAR(15),
+  `ID_PELANGGAN` VARCHAR(14),
+  `TGL_BAYAR` DATE,
+  `WAKTU_BAYAR` TIMESTAMP,
+  `BULAN_BAYAR` VARCHAR(2),
+  `TAHUN_BAYAR` YEAR(4),
+  `JUMLAH_BAYAR` DOUBLE,
+  `BIAYA_ADMIN` DOUBLE,
+  `TOTAL_AKHIR` DOUBLE,
+  `BAYAR` DOUBLE,
+  `KEMBALI` DOUBLE,
+  `ID_AGEN` VARCHAR(12),
+  `NAMA_PELANGGAN` VARCHAR(50),
+  `NAMA_AGEN` VARCHAR(50)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `qw_penggunaan`
+--
+CREATE TABLE IF NOT EXISTS `QW_PENGGUNAAN` (
+  `ID_PENGGUNAAN` VARCHAR(20),
+  `ID_PELANGGAN` VARCHAR(14),
+  `BULAN` VARCHAR(2),
+  `TAHUN` YEAR(4),
+  `METER_AWAL` INT(11),
+  `METER_AKHIR` INT(11),
+  `TGL_CEK` DATE,
+  `ID_PETUGAS` VARCHAR(12),
+  `NAMA_PELANGGAN` VARCHAR(50),
+  `NAMA_PETUGAS` VARCHAR(50)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `qw_tagihan`
+--
+CREATE TABLE IF NOT EXISTS `QW_TAGIHAN` (
+  `ID_TAGIHAN` INT(11),
+  `ID_PELANGGAN` VARCHAR(14),
+  `BULAN` VARCHAR(2),
+  `TAHUN` YEAR(4),
+  `JUMLAH_METER` INT(11),
+  `TARIF_PERKWH` DOUBLE,
+  `JUMLAH_BAYAR` DOUBLE,
+  `STATUS` VARCHAR(15),
+  `ID_PETUGAS` VARCHAR(12),
+  `NAMA_PELANGGAN` VARCHAR(50),
+  `ID_TARIF` INT(11),
+  `NAMA_PETUGAS` VARCHAR(50)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tagihan`
+--
+
+CREATE TABLE IF NOT EXISTS `TAGIHAN` (
+  `ID_TAGIHAN` INT(11) NOT NULL AUTO_INCREMENT,
+  `ID_PELANGGAN` VARCHAR(14) NOT NULL,
+  `BULAN` VARCHAR(2) NOT NULL,
+  `TAHUN` YEAR(4) NOT NULL,
+  `JUMLAH_METER` INT(11) NOT NULL,
+  `TARIF_PERKWH` DOUBLE NOT NULL,
+  `JUMLAH_BAYAR` DOUBLE NOT NULL,
+  `STATUS` VARCHAR(15) NOT NULL,
+  `ID_PETUGAS` VARCHAR(12) NOT NULL,
+  PRIMARY KEY (`ID_TAGIHAN`)
+) ENGINE=INNODB DEFAULT CHARSET=LATIN1 AUTO_INCREMENT=25;
+
+--
+-- Dumping data for table `tagihan`
+--
+
+INSERT INTO `TAGIHAN` (
+  `ID_TAGIHAN`,
+  `ID_PELANGGAN`,
+  `BULAN`,
+  `TAHUN`,
+  `JUMLAH_METER`,
+  `TARIF_PERKWH`,
+  `JUMLAH_BAYAR`,
+  `STATUS`,
+  `ID_PETUGAS`
+) VALUES (
+  5,
+  '20180126081200',
+  '02',
+  2018,
+  10,
+  1500,
+  15000,
+  'Terbayar',
+  'P20180125001'
+),
+(
+  6,
+  '20180126081200',
+  '03',
+  2018,
+  90,
+  1500,
+  135000,
+  'Terbayar',
+  'P20180125001'
+),
+(
+  7,
+  '20180126081804',
+  '02',
+  2018,
+  100,
+  750,
+  75000,
+  'Terbayar',
+  'P20180125001'
+),
+(
+  8,
+  '20180126165945',
+  '02',
+  2018,
+  100,
+  1500,
+  150000,
+  'Terbayar',
+  'P20180125001'
+),
+(
+  9,
+  '20180126081257',
+  '02',
+  2018,
+  80,
+  1000,
+  80000,
+  'Belum Bayar',
+  'P20180125001'
+),
+(
+  10,
+  '20180126081200',
+  '04',
+  2018,
+  900,
+  1500,
+  1350000,
+  'Terbayar',
+  'P20180125001'
+),
+(
+  11,
+  '20180129132711',
+  '02',
+  2018,
+  100,
+  1400,
+  140000,
+  'Terbayar',
+  'P20180125001'
+),
+(
+  12,
+  '20180128141130',
+  '02',
+  2018,
+  1000,
+  1500,
+  1500000,
+  'Terbayar',
+  'P20180125001'
+),
+(
+  13,
+  '20180128141130',
+  '03',
+  2018,
+  1000,
+  1500,
+  1500000,
+  'Belum Bayar',
+  'P20180125001'
+),
+(
+  14,
+  '20180129135850',
+  '02',
+  2018,
+  50,
+  1500,
+  75000,
+  'Belum Bayar',
+  'P20180125001'
+),
+(
+  15,
+  '20180129135850',
+  '03',
+  2018,
+  20,
+  1500,
+  30000,
+  'Belum Bayar',
+  'P20180125001'
+),
+(
+  16,
+  '20180128141026',
+  '02',
+  2018,
+  100,
+  750,
+  75000,
+  'Terbayar',
+  'P20180125001'
+),
+(
+  17,
+  '20180128141026',
+  '03',
+  2018,
+  50,
+  750,
+  37500,
+  'Terbayar',
+  'P20180125001'
+),
+(
+  18,
+  '20180128141026',
+  '04',
+  2018,
+  50,
+  750,
+  37500,
+  'Belum Bayar',
+  'P20180125001'
+),
+(
+  19,
+  '20180130165747',
+  '02',
+  2018,
+  100,
+  1500,
+  150000,
+  'Terbayar',
+  'P20180125001'
+),
+(
+  20,
+  '20180131085951',
+  '02',
+  2018,
+  100,
+  1000,
+  100000,
+  'Belum Bayar',
+  'P20180125001'
+),
+(
+  21,
+  '20180131085951',
+  '03',
+  2018,
+  20,
+  1000,
+  20000,
+  'Belum Bayar',
+  'P20180125001'
+),
+(
+  22,
+  '20180131085951',
+  '04',
+  2018,
+  80,
+  1000,
+  80000,
+  'Belum Bayar',
+  'P20180125001'
+),
+(
+  24,
+  '20180201092427',
+  '02',
+  2018,
+  100,
+  1000,
+  100000,
+  'Belum Bayar',
+  'P20180125001'
+);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tarif`
+--
+
+CREATE TABLE IF NOT EXISTS `TARIF` (
+  `ID_TARIF` INT(11) NOT NULL AUTO_INCREMENT,
+  `KODE_TARIF` VARCHAR(20) NOT NULL,
+  `GOLONGAN` VARCHAR(10) NOT NULL,
+  `DAYA` VARCHAR(10) NOT NULL,
+  `TARIF_PERKWH` DOUBLE NOT NULL,
+  PRIMARY KEY (`ID_TARIF`)
+) ENGINE=INNODB DEFAULT CHARSET=LATIN1 AUTO_INCREMENT=17;
+
+--
+-- Dumping data for table `tarif`
+--
+
+INSERT INTO `TARIF` (
+  `ID_TARIF`,
+  `KODE_TARIF`,
+  `GOLONGAN`,
+  `DAYA`,
+  `TARIF_PERKWH`
+) VALUES (
+  3,
+  'R3/450VA',
+  'R3',
+  '450VA',
+  1000
+),
+(
+  4,
+  'R1/900VA',
+  'R1',
+  '900VA',
+  1500
+),
+(
+  5,
+  'R2/450VA',
+  'R2',
+  '450VA',
+  750
+),
+(
+  8,
+  'R2/900VA',
+  'R2',
+  '900VA',
+  1500
+),
+(
+  9,
+  'B1/1500VA',
+  'B1',
+  '1500VA',
+  2000
+),
+(
+  10,
+  'R3/900VA',
+  'R3',
+  '900VA',
+  1400
+),
+(
+  13,
+  'R1/450VA',
+  'R1',
+  '450VA',
+  1000
+),
+(
+  16,
+  'R3/1300VA',
+  'R3',
+  '1300VA',
+  1500
+),
+(
+  17,
+  'R1/1300VA',
+  'R1',
+  '1300VA',
+  1500
+);
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `qw_pembayaran`
+--
+DROP TABLE IF EXISTS `QW_PEMBAYARAN`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`ROOT`@`LOCALHOST` SQL SECURITY DEFINER VIEW `QW_PEMBAYARAN` AS
+  SELECT
+    `PEMBAYARAN`.`ID_PEMBAYARAN` AS `ID_PEMBAYARAN`,
+    `PEMBAYARAN`.`ID_PELANGGAN` AS `ID_PELANGGAN`,
+    `PEMBAYARAN`.`TGL_BAYAR` AS `TGL_BAYAR`,
+    `PEMBAYARAN`.`WAKTU_BAYAR` AS `WAKTU_BAYAR`,
+    `PEMBAYARAN`.`BULAN_BAYAR` AS `BULAN_BAYAR`,
+    `PEMBAYARAN`.`TAHUN_BAYAR` AS `TAHUN_BAYAR`,
+    `PEMBAYARAN`.`JUMLAH_BAYAR` AS `JUMLAH_BAYAR`,
+    `PEMBAYARAN`.`BIAYA_ADMIN` AS `BIAYA_ADMIN`,
+    `PEMBAYARAN`.`TOTAL_AKHIR` AS `TOTAL_AKHIR`,
+    `PEMBAYARAN`.`BAYAR` AS `BAYAR`,
+    `PEMBAYARAN`.`KEMBALI` AS `KEMBALI`,
+    `PEMBAYARAN`.`ID_AGEN` AS `ID_AGEN`,
+    `PELANGGAN`.`NAMA` AS `NAMA_PELANGGAN`,
+    `AGEN`.`NAMA` AS `NAMA_AGEN`
+  FROM
+    ((`PEMBAYARAN` JOIN `PELANGGAN` ON((`PELANGGAN`.`ID_PELANGGAN` = `PEMBAYARAN`.`ID_PELANGGAN`))) JOIN `AGEN` ON((`AGEN`.`ID_AGEN` = `PEMBAYARAN`.`ID_AGEN`)));
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `qw_penggunaan`
+--
+DROP TABLE IF EXISTS `QW_PENGGUNAAN`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`ROOT`@`LOCALHOST` SQL SECURITY DEFINER VIEW `QW_PENGGUNAAN` AS
+  SELECT
+    `PENGGUNAAN`.`ID_PENGGUNAAN` AS `ID_PENGGUNAAN`,
+    `PENGGUNAAN`.`ID_PELANGGAN` AS `ID_PELANGGAN`,
+    `PENGGUNAAN`.`BULAN` AS `BULAN`,
+    `PENGGUNAAN`.`TAHUN` AS `TAHUN`,
+    `PENGGUNAAN`.`METER_AWAL` AS `METER_AWAL`,
+    `PENGGUNAAN`.`METER_AKHIR` AS `METER_AKHIR`,
+    `PENGGUNAAN`.`TGL_CEK` AS `TGL_CEK`,
+    `PENGGUNAAN`.`ID_PETUGAS` AS `ID_PETUGAS`,
+    `PELANGGAN`.`NAMA` AS `NAMA_PELANGGAN`,
+    `PETUGAS`.`NAMA` AS `NAMA_PETUGAS`
+  FROM
+    ((`PENGGUNAAN` JOIN `PELANGGAN` ON((`PENGGUNAAN`.`ID_PELANGGAN` = `PELANGGAN`.`ID_PELANGGAN`))) JOIN `PETUGAS` ON((`PENGGUNAAN`.`ID_PETUGAS` = `PETUGAS`.`ID_PETUGAS`)));
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `qw_tagihan`
+--
+DROP TABLE IF EXISTS `QW_TAGIHAN`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`ROOT`@`LOCALHOST` SQL SECURITY DEFINER VIEW `QW_TAGIHAN` AS
+  SELECT
+    `TAGIHAN`.`ID_TAGIHAN` AS `ID_TAGIHAN`,
+    `TAGIHAN`.`ID_PELANGGAN` AS `ID_PELANGGAN`,
+    `TAGIHAN`.`BULAN` AS `BULAN`,
+    `TAGIHAN`.`TAHUN` AS `TAHUN`,
+    `TAGIHAN`.`JUMLAH_METER` AS `JUMLAH_METER`,
+    `TAGIHAN`.`TARIF_PERKWH` AS `TARIF_PERKWH`,
+    `TAGIHAN`.`JUMLAH_BAYAR` AS `JUMLAH_BAYAR`,
+    `TAGIHAN`.`STATUS` AS `STATUS`,
+    `TAGIHAN`.`ID_PETUGAS` AS `ID_PETUGAS`,
+    `PELANGGAN`.`NAMA` AS `NAMA_PELANGGAN`,
+    `PELANGGAN`.`ID_TARIF` AS `ID_TARIF`,
+    `PETUGAS`.`NAMA` AS `NAMA_PETUGAS`
+  FROM
+    ((`TAGIHAN` JOIN `PELANGGAN` ON((`PELANGGAN`.`ID_PELANGGAN` = `TAGIHAN`.`ID_PELANGGAN`))) JOIN `PETUGAS` ON((`PETUGAS`.`ID_PETUGAS` = `TAGIHAN`.`ID_PETUGAS`)));
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
